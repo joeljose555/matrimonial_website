@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,9 +11,12 @@ import {
   User,
   Settings,
   LogOut,
+  Home as HomeIcon,
 } from "lucide-react";
 import ProfileCard from "./ProfileCard";
 import SearchFilters from "./SearchFilters";
+import { Link, useLocation } from "react-router-dom";
+import Footer from "./Footer";
 
 interface DashboardProps {
   username?: string;
@@ -24,8 +27,19 @@ const Dashboard = ({
   username = "John Doe",
   profileCompletion = 75,
 }: DashboardProps) => {
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("recommended");
   const [showFilters, setShowFilters] = useState(false);
+
+  // Check if we have search params from the home page
+  useEffect(() => {
+    if (location.state?.searchParams) {
+      setActiveTab("search");
+      setShowFilters(true);
+      // In a real app, you would use the search params to filter results
+      console.log("Search params:", location.state.searchParams);
+    }
+  }, [location.state]);
 
   // Mock data for recommended matches
   const recommendedMatches = [
@@ -126,144 +140,121 @@ const Dashboard = ({
   };
 
   return (
-    <div className="flex h-screen bg-background">
-      {/* Sidebar */}
-      <div className="w-64 border-r bg-card p-4 flex flex-col">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-primary">Matrimony</h2>
-        </div>
+    <div className="flex flex-col min-h-screen bg-background">
+      {/* Sidebar and Main Content Container */}
+      <div className="flex flex-1">
+        {/* Sidebar */}
+        <div className="w-64 border-r bg-card p-4 flex flex-col">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-primary">Matrimony</h2>
+          </div>
 
-        <div className="mb-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-              <User className="h-6 w-6 text-primary" />
-            </div>
-            <div>
-              <p className="font-medium">{username}</p>
-              <div className="flex items-center gap-2">
-                <Progress value={profileCompletion} className="h-2 w-24" />
-                <span className="text-xs text-muted-foreground">
-                  {profileCompletion}%
-                </span>
+          <div className="mb-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <User className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <p className="font-medium">{username}</p>
+                <div className="flex items-center gap-2">
+                  <Progress value={profileCompletion} className="h-2 w-24" />
+                  <span className="text-xs text-muted-foreground">
+                    {profileCompletion}%
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-          <Button variant="outline" className="w-full justify-start" size="sm">
-            <User className="mr-2 h-4 w-4" />
-            Complete Profile
-          </Button>
-        </div>
-
-        <nav className="space-y-1 flex-1">
-          <Button
-            variant={activeTab === "recommended" ? "secondary" : "ghost"}
-            className="w-full justify-start"
-            onClick={() => setActiveTab("recommended")}
-          >
-            <Heart className="mr-2 h-4 w-4" />
-            Recommended
-          </Button>
-          <Button
-            variant={activeTab === "search" ? "secondary" : "ghost"}
-            className="w-full justify-start"
-            onClick={() => setActiveTab("search")}
-          >
-            <Search className="mr-2 h-4 w-4" />
-            Search
-          </Button>
-          <Button
-            variant={activeTab === "interests" ? "secondary" : "ghost"}
-            className="w-full justify-start"
-            onClick={() => setActiveTab("interests")}
-          >
-            <Heart className="mr-2 h-4 w-4" />
-            Interests
-          </Button>
-          <Button
-            variant={activeTab === "messages" ? "secondary" : "ghost"}
-            className="w-full justify-start"
-            onClick={() => setActiveTab("messages")}
-          >
-            <Mail className="mr-2 h-4 w-4" />
-            Messages
-          </Button>
-        </nav>
-
-        <div className="pt-4 border-t space-y-1">
-          <Button variant="ghost" className="w-full justify-start">
-            <Settings className="mr-2 h-4 w-4" />
-            Settings
-          </Button>
-          <Button variant="ghost" className="w-full justify-start">
-            <LogOut className="mr-2 h-4 w-4" />
-            Logout
-          </Button>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 overflow-auto">
-        {/* Header */}
-        <header className="border-b p-4 flex justify-between items-center bg-background sticky top-0 z-10">
-          <h1 className="text-xl font-semibold">
-            {activeTab === "recommended" && "Recommended Matches"}
-            {activeTab === "search" && "Search Partners"}
-            {activeTab === "interests" && "Interests"}
-            {activeTab === "messages" && "Messages"}
-          </h1>
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon">
-              <Bell className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon">
-              <Mail className="h-5 w-5" />
+            <Button
+              variant="outline"
+              className="w-full justify-start"
+              size="sm"
+            >
+              <User className="mr-2 h-4 w-4" />
+              Complete Profile
             </Button>
           </div>
-        </header>
 
-        {/* Content Area */}
-        <div className="p-6">
-          {/* Recommended Tab */}
-          {activeTab === "recommended" && (
-            <div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {recommendedMatches.map((match) => (
-                  <ProfileCard
-                    key={match.id}
-                    name={match.name}
-                    age={match.age}
-                    location={match.location}
-                    profession={match.profession}
-                    photo={match.photo}
-                    compatibility={match.compatibility}
-                  />
-                ))}
-              </div>
+          <nav className="space-y-1 flex-1">
+            <Button
+              variant={activeTab === "recommended" ? "secondary" : "ghost"}
+              className="w-full justify-start"
+              onClick={() => setActiveTab("recommended")}
+            >
+              <Heart className="mr-2 h-4 w-4" />
+              Recommended
+            </Button>
+            <Button
+              variant={activeTab === "search" ? "secondary" : "ghost"}
+              className="w-full justify-start"
+              onClick={() => setActiveTab("search")}
+            >
+              <Search className="mr-2 h-4 w-4" />
+              Search
+            </Button>
+            <Button
+              variant={activeTab === "interests" ? "secondary" : "ghost"}
+              className="w-full justify-start"
+              onClick={() => setActiveTab("interests")}
+            >
+              <Heart className="mr-2 h-4 w-4" />
+              Interests
+            </Button>
+            <Button
+              variant={activeTab === "messages" ? "secondary" : "ghost"}
+              className="w-full justify-start"
+              onClick={() => setActiveTab("messages")}
+            >
+              <Mail className="mr-2 h-4 w-4" />
+              Messages
+            </Button>
+          </nav>
+
+          <div className="pt-4 border-t space-y-1">
+            <Link to="/">
+              <Button variant="ghost" className="w-full justify-start">
+                <HomeIcon className="mr-2 h-4 w-4" />
+                Home
+              </Button>
+            </Link>
+            <Button variant="ghost" className="w-full justify-start">
+              <Settings className="mr-2 h-4 w-4" />
+              Settings
+            </Button>
+            <Link to="/login">
+              <Button variant="ghost" className="w-full justify-start">
+                <LogOut className="mr-2 h-4 w-4" />
+                Logout
+              </Button>
+            </Link>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 overflow-auto">
+          {/* Header */}
+          <header className="border-b p-4 flex justify-between items-center bg-background sticky top-0 z-10">
+            <h1 className="text-xl font-semibold">
+              {activeTab === "recommended" && "Recommended Matches"}
+              {activeTab === "search" && "Search Partners"}
+              {activeTab === "interests" && "Interests"}
+              {activeTab === "messages" && "Messages"}
+            </h1>
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" size="icon">
+                <Bell className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="icon">
+                <Mail className="h-5 w-5" />
+              </Button>
             </div>
-          )}
+          </header>
 
-          {/* Search Tab */}
-          {activeTab === "search" && (
-            <div className="flex gap-6">
-              {showFilters && (
-                <div className="w-72">
-                  <SearchFilters />
-                </div>
-              )}
-              <div className="flex-1">
-                <div className="mb-6 flex justify-between items-center">
-                  <Button
-                    variant="outline"
-                    onClick={toggleFilters}
-                    className="mb-4"
-                  >
-                    {showFilters ? "Hide Filters" : "Show Filters"}
-                  </Button>
-                  <div className="text-sm text-muted-foreground">
-                    Showing 20 results
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Content Area */}
+          <div className="p-6">
+            {/* Recommended Tab */}
+            {activeTab === "recommended" && (
+              <div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {recommendedMatches.map((match) => (
                     <ProfileCard
                       key={match.id}
@@ -272,110 +263,149 @@ const Dashboard = ({
                       location={match.location}
                       profession={match.profession}
                       photo={match.photo}
+                      compatibility={match.compatibility}
                     />
                   ))}
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Interests Tab */}
-          {activeTab === "interests" && (
-            <div>
-              <Tabs defaultValue="received">
-                <TabsList className="mb-6">
-                  <TabsTrigger value="received">Received</TabsTrigger>
-                  <TabsTrigger value="sent">Sent</TabsTrigger>
-                </TabsList>
-                <TabsContent value="received">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {interests
-                      .filter((interest) => interest.status === "received")
-                      .map((interest) => (
-                        <ProfileCard
-                          key={interest.id}
-                          name={interest.name}
-                          age={interest.age}
-                          location={interest.location}
-                          profession={interest.profession}
-                          photo={interest.photo}
-                          showActions={true}
-                          actionButtons={[
-                            <Button key="accept" size="sm">
-                              Accept
-                            </Button>,
-                            <Button key="decline" variant="outline" size="sm">
-                              Decline
-                            </Button>,
-                          ]}
-                        />
-                      ))}
+            {/* Search Tab */}
+            {activeTab === "search" && (
+              <div className="flex gap-6">
+                {showFilters && (
+                  <div className="w-72">
+                    <SearchFilters />
                   </div>
-                </TabsContent>
-                <TabsContent value="sent">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {interests
-                      .filter((interest) => interest.status === "sent")
-                      .map((interest) => (
-                        <ProfileCard
-                          key={interest.id}
-                          name={interest.name}
-                          age={interest.age}
-                          location={interest.location}
-                          profession={interest.profession}
-                          photo={interest.photo}
-                          showActions={true}
-                          actionButtons={[
-                            <Button key="cancel" variant="outline" size="sm">
-                              Cancel Interest
-                            </Button>,
-                          ]}
-                        />
-                      ))}
+                )}
+                <div className="flex-1">
+                  <div className="mb-6 flex justify-between items-center">
+                    <Button
+                      variant="outline"
+                      onClick={toggleFilters}
+                      className="mb-4"
+                    >
+                      {showFilters ? "Hide Filters" : "Show Filters"}
+                    </Button>
+                    <div className="text-sm text-muted-foreground">
+                      Showing 20 results
+                    </div>
                   </div>
-                </TabsContent>
-              </Tabs>
-            </div>
-          )}
-
-          {/* Messages Tab */}
-          {activeTab === "messages" && (
-            <div className="grid grid-cols-1 gap-4">
-              {messages.map((message) => (
-                <Card
-                  key={message.id}
-                  className={message.unread ? "border-primary/50" : ""}
-                >
-                  <CardContent className="p-4 flex items-center gap-4">
-                    <div className="relative">
-                      <img
-                        src={message.photo}
-                        alt={message.name}
-                        className="h-12 w-12 rounded-full object-cover"
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {recommendedMatches.map((match) => (
+                      <ProfileCard
+                        key={match.id}
+                        name={match.name}
+                        age={match.age}
+                        location={match.location}
+                        profession={match.profession}
+                        photo={match.photo}
                       />
-                      {message.unread && (
-                        <span className="absolute top-0 right-0 h-3 w-3 rounded-full bg-primary"></span>
-                      )}
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Interests Tab */}
+            {activeTab === "interests" && (
+              <div>
+                <Tabs defaultValue="received">
+                  <TabsList className="mb-6">
+                    <TabsTrigger value="received">Received</TabsTrigger>
+                    <TabsTrigger value="sent">Sent</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="received">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {interests
+                        .filter((interest) => interest.status === "received")
+                        .map((interest) => (
+                          <ProfileCard
+                            key={interest.id}
+                            name={interest.name}
+                            age={interest.age}
+                            location={interest.location}
+                            profession={interest.profession}
+                            photo={interest.photo}
+                            showActions={true}
+                            actionButtons={[
+                              <Button key="accept" size="sm">
+                                Accept
+                              </Button>,
+                              <Button key="decline" variant="outline" size="sm">
+                                Decline
+                              </Button>,
+                            ]}
+                          />
+                        ))}
                     </div>
-                    <div className="flex-1">
-                      <div className="flex justify-between items-center mb-1">
-                        <h3 className="font-medium">{message.name}</h3>
-                        <span className="text-xs text-muted-foreground">
-                          Today
-                        </span>
+                  </TabsContent>
+                  <TabsContent value="sent">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {interests
+                        .filter((interest) => interest.status === "sent")
+                        .map((interest) => (
+                          <ProfileCard
+                            key={interest.id}
+                            name={interest.name}
+                            age={interest.age}
+                            location={interest.location}
+                            profession={interest.profession}
+                            photo={interest.photo}
+                            showActions={true}
+                            actionButtons={[
+                              <Button key="cancel" variant="outline" size="sm">
+                                Cancel Interest
+                              </Button>,
+                            ]}
+                          />
+                        ))}
+                    </div>
+                  </TabsContent>
+                </Tabs>
+              </div>
+            )}
+
+            {/* Messages Tab */}
+            {activeTab === "messages" && (
+              <div className="grid grid-cols-1 gap-4">
+                {messages.map((message) => (
+                  <Card
+                    key={message.id}
+                    className={message.unread ? "border-primary/50" : ""}
+                  >
+                    <CardContent className="p-4 flex items-center gap-4">
+                      <div className="relative">
+                        <img
+                          src={message.photo}
+                          alt={message.name}
+                          className="h-12 w-12 rounded-full object-cover"
+                        />
+                        {message.unread && (
+                          <span className="absolute top-0 right-0 h-3 w-3 rounded-full bg-primary"></span>
+                        )}
                       </div>
-                      <p className="text-sm text-muted-foreground truncate">
-                        {message.lastMessage}
-                      </p>
-                    </div>
-                    <Button size="sm">Reply</Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
+                      <div className="flex-1">
+                        <div className="flex justify-between items-center mb-1">
+                          <h3 className="font-medium">{message.name}</h3>
+                          <span className="text-xs text-muted-foreground">
+                            Today
+                          </span>
+                        </div>
+                        <p className="text-sm text-muted-foreground truncate">
+                          {message.lastMessage}
+                        </p>
+                      </div>
+                      <Button size="sm">Reply</Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
