@@ -1,5 +1,5 @@
 import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "./ui/input";
 import { Select } from "./ui/select";
 import {
@@ -15,18 +15,58 @@ import {
   Phone,
   Mail,
   MessageSquare,
+  Heart,
 } from "lucide-react";
+import ImageCarousel from "./ImageCarousel";
+import Footer from "./Footer";
+import { useState } from "react";
 
 function Home() {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useState({
+    lookingFor: "bride",
+    ageRange: "21-35",
+    community: "syro-malabar",
+    diocese: "all",
+  });
+
+  const handleSearchParamChange = (param: string, value: string) => {
+    setSearchParams((prev) => ({
+      ...prev,
+      [param]: value,
+    }));
+  };
+
+  const handleSearch = () => {
+    // Navigate to dashboard with search params
+    navigate("/dashboard", { state: { searchParams } });
+  };
+
+  const carouselImages = [
+    {
+      src: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80",
+      alt: "Happy couple at wedding",
+      caption: "Begin Your Journey to Forever",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=1200&q=80",
+      alt: "Church wedding ceremony",
+      caption: "Sacred Unions in Faith",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1200&q=80",
+      alt: "Couple holding hands",
+      caption: "Find Your Perfect Match",
+    },
+  ];
+
   return (
     <div className="bg-background">
       {/* Header/Navigation */}
       <header className="bg-white border-b border-border sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-primary">
-              Syro Malabar Matrimony
-            </h1>
+            <h1 className="text-2xl font-bold text-primary">Joels Matrimony</h1>
           </div>
 
           <nav className="hidden md:flex space-x-6">
@@ -73,61 +113,134 @@ function Home() {
         </div>
       </header>
 
-      {/* Hero Section with Search */}
-      <section className="relative h-[500px] overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80"
-            alt="Happy couple"
-            className="w-full h-full object-cover brightness-[0.7]"
-          />
-        </div>
-        <div className="relative z-10 container mx-auto h-full flex flex-col justify-center items-center text-white text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            Find your perfect partner.
-          </h1>
-
-          <div className="bg-white/90 p-6 rounded-lg shadow-lg w-full max-w-3xl mt-8">
-            <div className="text-left mb-4">
-              <p className="text-primary font-medium">I am looking for</p>
+      {/* Hero Section with Image Carousel */}
+      <section className="relative h-[600px] overflow-hidden">
+        <ImageCarousel
+          images={carouselImages}
+          className="h-full"
+          autoPlay={true}
+          interval={5000}
+        />
+        <div className="absolute inset-0 z-10 flex items-center justify-center">
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-3xl mx-auto bg-black/30 p-8 rounded-lg backdrop-blur-sm">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+                Begin Your Journey to Forever
+              </h1>
+              <p className="text-xl text-white/90 mb-8">
+                Join thousands of Syro Malabar Catholics who found their perfect
+                match
+              </p>
+              <div className="flex justify-center gap-4">
+                <Link to="/register">
+                  <Button size="lg" className="bg-primary hover:bg-primary/90">
+                    Register Now
+                  </Button>
+                </Link>
+                <Link to="/success-stories">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="border-white text-white hover:bg-white/20"
+                  >
+                    View Success Stories
+                  </Button>
+                </Link>
+              </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div>
+          </div>
+        </div>
+      </section>
+
+      {/* Find Partner Section */}
+      <section className="py-16 bg-gradient-to-r from-primary/5 to-secondary/10">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold mb-4">
+              Find Your Perfect Partner
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Our advanced matching system helps you find compatible partners
+              based on your preferences
+            </p>
+          </div>
+
+          <div className="bg-white p-8 rounded-xl shadow-lg max-w-4xl mx-auto border border-primary/20">
+            <div className="flex items-center gap-2 mb-6">
+              <Heart className="h-5 w-5 text-primary" />
+              <h3 className="text-xl font-semibold">I am looking for</h3>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Looking for</label>
                 <Select>
-                  <div className="flex justify-between items-center text-foreground">
-                    <span>Bride</span>
+                  <div
+                    className="flex justify-between items-center text-foreground p-2 border rounded-md"
+                    onClick={() =>
+                      handleSearchParamChange(
+                        "lookingFor",
+                        searchParams.lookingFor === "bride" ? "groom" : "bride",
+                      )
+                    }
+                  >
+                    <span>
+                      {searchParams.lookingFor === "bride" ? "Bride" : "Groom"}
+                    </span>
                     <ChevronDown className="h-4 w-4" />
                   </div>
                 </Select>
               </div>
-              <div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Age Range</label>
                 <Select>
-                  <div className="flex justify-between items-center text-foreground">
+                  <div
+                    className="flex justify-between items-center text-foreground p-2 border rounded-md"
+                    onClick={() => handleSearchParamChange("ageRange", "21-35")}
+                  >
                     <span>21 - 35</span>
                     <ChevronDown className="h-4 w-4" />
                   </div>
                 </Select>
               </div>
-              <div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Community</label>
                 <Select>
-                  <div className="flex justify-between items-center text-foreground">
-                    <span>Community</span>
+                  <div
+                    className="flex justify-between items-center text-foreground p-2 border rounded-md"
+                    onClick={() =>
+                      handleSearchParamChange("community", "syro-malabar")
+                    }
+                  >
+                    <span>Syro-Malabar</span>
                     <ChevronDown className="h-4 w-4" />
                   </div>
                 </Select>
               </div>
-              <div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Diocese</label>
                 <Select>
-                  <div className="flex justify-between items-center text-foreground">
-                    <span>Diocese</span>
+                  <div
+                    className="flex justify-between items-center text-foreground p-2 border rounded-md"
+                    onClick={() => handleSearchParamChange("diocese", "all")}
+                  >
+                    <span>All Dioceses</span>
                     <ChevronDown className="h-4 w-4" />
                   </div>
                 </Select>
               </div>
             </div>
-            <div className="mt-4 text-center">
-              <Button className="bg-primary hover:bg-primary/90 text-white px-8">
-                Search
+
+            <div className="mt-8 text-center">
+              <Button
+                onClick={handleSearch}
+                className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white px-10 py-6 h-auto text-lg rounded-full shadow-md transition-all duration-300 hover:shadow-lg"
+              >
+                <Search className="mr-2 h-5 w-5" />
+                Find Matches
               </Button>
             </div>
           </div>
@@ -946,144 +1059,7 @@ function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 bg-secondary/20 border-t border-border">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-            {/* Site Map */}
-            <div>
-              <h3 className="font-bold text-lg mb-4">Site Map</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link
-                    to="/"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/packages"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    Packages
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/about"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/resources"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    Resources
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Help */}
-            <div>
-              <h3 className="font-bold text-lg mb-4">Help</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link
-                    to="/terms"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    Terms & Conditions
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/child-protection"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    Child Protection Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/privacy"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/cancellation"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    Cancellation Policy
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Company */}
-            <div>
-              <h3 className="font-bold text-lg mb-4">Company</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link
-                    to="/success-stories"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    Happy Stories
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/faq"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    FAQ
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/contact"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/courses"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    Courses
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Logo */}
-            <div>
-              <h2 className="text-2xl font-bold text-primary mb-4">
-                Syro Malabar Matrimony
-              </h2>
-              <p className="text-muted-foreground">
-                The premier Catholic matrimonial site exclusively for Syro
-                Malabar brides and grooms.
-              </p>
-            </div>
-          </div>
-
-          <div className="border-t border-border pt-6 text-center text-muted-foreground">
-            <p>© 2023 Syro Malabar Matrimony. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
