@@ -10,6 +10,9 @@ const RegistrationPage = lazy(() => import("./components/RegistrationPage"));
 const ProfileCreation = lazy(() => import("./components/ProfileCreation"));
 const ProfilePage = lazy(() => import("./components/ProfilePage"));
 const ChatMessagesPage = lazy(() => import("./components/ChatMessagesPage"));
+const AboutUs = lazy(() => import("./components/AboutUs"));
+const ContactUs = lazy(() => import("./components/ContactUs"));
+const Packages = lazy(() => import("./components/Packages"));
 
 function App() {
   return (
@@ -31,14 +34,7 @@ function App() {
           <Route path="/messages" element={<ChatMessagesPage />} />
 
           {/* Add routes for other pages */}
-          <Route
-            path="/about"
-            element={
-              <div className="p-8">
-                <h1 className="text-2xl font-bold">About Us</h1>
-              </div>
-            }
-          />
+          <Route path="/about" element={<AboutUs />} />
           <Route
             path="/resources"
             element={
@@ -47,22 +43,8 @@ function App() {
               </div>
             }
           />
-          <Route
-            path="/packages"
-            element={
-              <div className="p-8">
-                <h1 className="text-2xl font-bold">Packages</h1>
-              </div>
-            }
-          />
-          <Route
-            path="/contact"
-            element={
-              <div className="p-8">
-                <h1 className="text-2xl font-bold">Contact Us</h1>
-              </div>
-            }
-          />
+          <Route path="/packages" element={<Packages />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route
             path="/success-stories"
             element={

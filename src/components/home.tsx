@@ -151,127 +151,181 @@ function Home() {
         </div>
       </section>
 
-      {/* Find Partner Section */}
-      <section className="py-16 bg-gradient-to-r from-primary/5 to-secondary/10">
+      {/* Find Partner Section - With solid color background */}
+      <section className="py-16 bg-section-accent">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold mb-4">
-              Find Your Perfect Partner
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our advanced matching system helps you find compatible partners
-              based on your preferences
-            </p>
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="flex flex-col justify-center">
+              <h2 className="text-3xl font-bold mb-4">
+                Find Your Perfect Partner
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Our advanced matching system helps you find compatible partners
+                based on your preferences. We understand the importance of faith
+                and values in a relationship and help you connect with
+                like-minded individuals.
+              </p>
 
-          <div className="bg-white p-8 rounded-xl shadow-lg max-w-4xl mx-auto border border-primary/20">
-            <div className="flex items-center gap-2 mb-6">
-              <Heart className="h-5 w-5 text-primary" />
-              <h3 className="text-xl font-semibold">I am looking for</h3>
-            </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="flex items-center gap-2 mb-6">
+                  <Heart className="h-5 w-5 text-primary" />
+                  <h3 className="text-xl font-semibold">Success Stories</h3>
+                </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Looking for</label>
-                <Select>
-                  <select
-                    className="flex justify-between items-center text-foreground p-2 border rounded-md w-full"
-                    value={searchParams.lookingFor}
-                    onChange={(e) =>
-                      handleSearchParamChange("lookingFor", e.target.value)
-                    }
-                  >
-                    <option value="bride">Bride</option>
-                    <option value="groom">Groom</option>
-                  </select>
-                </Select>
-              </div>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <img
+                      src="https://api.dicebear.com/7.x/avataaars/svg?seed=John"
+                      alt="John & Mary"
+                      className="w-12 h-12 rounded-full"
+                    />
+                    <div>
+                      <h4 className="font-medium">John & Mary</h4>
+                      <p className="text-sm text-muted-foreground">
+                        "We found each other through Bless Matrimony and
+                        couldn't be happier!"
+                      </p>
+                    </div>
+                  </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Age Range</label>
-                <Select>
-                  <select
-                    className="flex justify-between items-center text-foreground p-2 border rounded-md w-full"
-                    value={searchParams.ageRange}
-                    onChange={(e) =>
-                      handleSearchParamChange("ageRange", e.target.value)
-                    }
-                  >
-                    <option value="18-25">18 - 25</option>
-                    <option value="21-35">21 - 35</option>
-                    <option value="25-40">25 - 40</option>
-                    <option value="35-50">35 - 50</option>
-                    <option value="45+">45+</option>
-                  </select>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Community</label>
-                <Select>
-                  <select
-                    className="flex justify-between items-center text-foreground p-2 border rounded-md w-full"
-                    value={searchParams.community}
-                    onChange={(e) =>
-                      handleSearchParamChange("community", e.target.value)
-                    }
-                  >
-                    <option value="catholic">Catholic</option>
-                    <option value="latin">Latin</option>
-                    <option value="syro-malabar">Syro-Malabar</option>
-                    <option value="syro-malankara">Syro-Malankara</option>
-                    <option value="other">Other</option>
-                  </select>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Diocese</label>
-                <Select>
-                  <select
-                    className="flex justify-between items-center text-foreground p-2 border rounded-md w-full"
-                    value={searchParams.diocese}
-                    onChange={(e) =>
-                      handleSearchParamChange("diocese", e.target.value)
-                    }
-                  >
-                    <option value="all">All Dioceses</option>
-                    <option value="ernakulam">Ernakulam</option>
-                    <option value="thrissur">Thrissur</option>
-                    <option value="kottayam">Kottayam</option>
-                    <option value="palai">Palai</option>
-                    <option value="other">Other</option>
-                  </select>
-                </Select>
+                  <div className="flex items-start gap-4">
+                    <img
+                      src="https://api.dicebear.com/7.x/avataaars/svg?seed=Thomas"
+                      alt="Thomas & Sarah"
+                      className="w-12 h-12 rounded-full"
+                    />
+                    <div>
+                      <h4 className="font-medium">Thomas & Sarah</h4>
+                      <p className="text-sm text-muted-foreground">
+                        "The platform made it easy to connect with someone who
+                        shares our faith."
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="mt-8 text-center">
-              <Button
-                onClick={handleSearch}
-                className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white px-10 py-6 h-auto text-lg rounded-full shadow-md transition-all duration-300 hover:shadow-lg"
-              >
-                <Search className="mr-2 h-5 w-5" />
-                Find Matches
-              </Button>
+            <div>
+              <div className="bg-white p-8 rounded-xl shadow-lg border border-primary/20">
+                <div className="flex items-center gap-2 mb-6">
+                  <Heart className="h-5 w-5 text-primary" />
+                  <h3 className="text-xl font-semibold">I am looking for</h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Looking for</label>
+                    <Select>
+                      <select
+                        className="flex justify-between items-center text-foreground p-2 border rounded-md w-full"
+                        value={searchParams.lookingFor}
+                        onChange={(e) =>
+                          handleSearchParamChange("lookingFor", e.target.value)
+                        }
+                      >
+                        <option value="bride">Bride</option>
+                        <option value="groom">Groom</option>
+                      </select>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Age Range</label>
+                    <Select>
+                      <select
+                        className="flex justify-between items-center text-foreground p-2 border rounded-md w-full"
+                        value={searchParams.ageRange}
+                        onChange={(e) =>
+                          handleSearchParamChange("ageRange", e.target.value)
+                        }
+                      >
+                        <option value="18-25">18 - 25</option>
+                        <option value="21-35">21 - 35</option>
+                        <option value="25-40">25 - 40</option>
+                        <option value="35-50">35 - 50</option>
+                        <option value="45+">45+</option>
+                      </select>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Community</label>
+                    <Select>
+                      <select
+                        className="flex justify-between items-center text-foreground p-2 border rounded-md w-full"
+                        value={searchParams.community}
+                        onChange={(e) =>
+                          handleSearchParamChange("community", e.target.value)
+                        }
+                      >
+                        <option value="catholic">Catholic</option>
+                        <option value="latin">Latin</option>
+                        <option value="syro-malabar">Syro-Malabar</option>
+                        <option value="syro-malankara">Syro-Malankara</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Diocese</label>
+                    <Select>
+                      <select
+                        className="flex justify-between items-center text-foreground p-2 border rounded-md w-full"
+                        value={searchParams.diocese}
+                        onChange={(e) =>
+                          handleSearchParamChange("diocese", e.target.value)
+                        }
+                      >
+                        <option value="all">All Dioceses</option>
+                        <option value="ernakulam">Ernakulam</option>
+                        <option value="thrissur">Thrissur</option>
+                        <option value="kottayam">Kottayam</option>
+                        <option value="palai">Palai</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="mt-8 text-center">
+                  <Button
+                    onClick={handleSearch}
+                    className="bg-primary hover:bg-primary/90 text-white px-10 py-6 h-auto text-lg rounded-full shadow-md transition-all duration-300 hover:shadow-lg"
+                  >
+                    <Search className="mr-2 h-5 w-5" />
+                    Find Matches
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Highlighted Profiles */}
-      <section className="py-16 bg-white">
+      {/* Highlighted Profiles - With solid color background */}
+      <section className="py-16 bg-section-highlight">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-4">
-            Highlighted Profiles
-          </h2>
-          <p className="text-center text-muted-foreground mb-10">
-            Get noticed by standing out from other profiles.
-          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-12">
+            <div>
+              <h2 className="text-3xl font-bold mb-4">Highlighted Profiles</h2>
+              <p className="text-lg text-muted-foreground">
+                Get noticed by standing out from other profiles. Our featured
+                members are actively seeking meaningful connections based on
+                shared faith and values.
+              </p>
+            </div>
+            <div className="flex justify-end">
+              <Button className="bg-primary hover:bg-primary/90">
+                View All Profiles
+              </Button>
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {/* Profile 1 */}
-            <div className="bg-card rounded-lg shadow-md overflow-hidden border border-border hover:shadow-lg transition-shadow">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden border border-border hover:shadow-lg transition-shadow">
               <div className="aspect-square relative overflow-hidden bg-muted">
                 <img
                   src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sandra"
@@ -296,7 +350,7 @@ function Home() {
             </div>
 
             {/* Profile 2 */}
-            <div className="bg-card rounded-lg shadow-md overflow-hidden border border-border hover:shadow-lg transition-shadow">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden border border-border hover:shadow-lg transition-shadow">
               <div className="aspect-square relative overflow-hidden bg-muted">
                 <img
                   src="https://api.dicebear.com/7.x/avataaars/svg?seed=Anil"
@@ -321,7 +375,7 @@ function Home() {
             </div>
 
             {/* Profile 3 */}
-            <div className="bg-card rounded-lg shadow-md overflow-hidden border border-border hover:shadow-lg transition-shadow">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden border border-border hover:shadow-lg transition-shadow">
               <div className="aspect-square relative overflow-hidden bg-muted">
                 <img
                   src="https://api.dicebear.com/7.x/avataaars/svg?seed=DivyaRose"
@@ -346,7 +400,7 @@ function Home() {
             </div>
 
             {/* Profile 4 */}
-            <div className="bg-card rounded-lg shadow-md overflow-hidden border border-border hover:shadow-lg transition-shadow">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden border border-border hover:shadow-lg transition-shadow">
               <div className="aspect-square relative overflow-hidden bg-muted">
                 <img
                   src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rohith"
@@ -371,7 +425,7 @@ function Home() {
             </div>
 
             {/* Profile 5 */}
-            <div className="bg-card rounded-lg shadow-md overflow-hidden border border-border hover:shadow-lg transition-shadow">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden border border-border hover:shadow-lg transition-shadow">
               <div className="aspect-square relative overflow-hidden bg-muted">
                 <img
                   src="https://api.dicebear.com/7.x/avataaars/svg?seed=Anugraha"
@@ -398,183 +452,221 @@ function Home() {
         </div>
       </section>
 
-      {/* Statistics */}
-      <section className="py-16 bg-secondary/20">
+      {/* Statistics - With solid color background */}
+      <section className="py-16 bg-section-dark">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="text-4xl font-bold text-primary mb-2">10+</div>
-              <p className="text-lg">Years of Service</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">
+                Our Community in Numbers
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                Bless Matrimony has been connecting Catholic singles for over a
+                decade, with a strong presence across multiple eparchies in
+                India and abroad.
+              </p>
+              <Link to="/about">
+                <Button
+                  variant="outline"
+                  className="border-primary text-primary hover:bg-primary/10"
+                >
+                  Learn More About Us
+                </Button>
+              </Link>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="text-4xl font-bold text-primary mb-2">13</div>
-              <p className="text-lg">Eparchies in Kerala</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="text-4xl font-bold text-primary mb-2">18</div>
-              <p className="text-lg">Eparchies Outside Kerala</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="text-4xl font-bold text-primary mb-2">4</div>
-              <p className="text-lg">Eparchies Outside India</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="text-4xl font-bold text-primary mb-2">1</div>
-              <p className="text-lg">Apostolic visitation</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* About Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-lg font-medium text-primary mb-2">
-              Who we are
-            </h2>
-            <h3 className="text-3xl font-bold mb-6">About Bless Matrimony</h3>
-            <p className="text-lg text-muted-foreground mb-8">
-              Welcome to Bless Matrimony, the premier Catholic matrimonial site
-              exclusively created for Catholic brides and grooms. Our platform,
-              integral to the Church's pastoral initiatives, simplifies your
-              search for a suitable Catholic life partner within your community.
-              With a vast database of genuine profiles, discover a match
-              tailored to your preferences. Bless Matrimony connects hearts
-              worldwide. Start your journey towards a joyful Catholic marriage
-              today.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-8 mt-10">
-              <div className="flex items-center">
-                <div className="mr-3 text-primary">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-                <span className="font-medium">Best Matches</span>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div className="bg-white p-6 rounded-lg shadow-md text-center">
+                <div className="text-4xl font-bold text-primary mb-2">10+</div>
+                <p className="text-lg">Years of Service</p>
               </div>
-              <div className="flex items-center">
-                <div className="mr-3 text-primary">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-                <span className="font-medium">Verified Profiles</span>
+              <div className="bg-white p-6 rounded-lg shadow-md text-center">
+                <div className="text-4xl font-bold text-primary mb-2">13</div>
+                <p className="text-lg">Eparchies in Kerala</p>
               </div>
-              <div className="flex items-center">
-                <div className="mr-3 text-primary">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-                <span className="font-medium">100% Privacy</span>
+              <div className="bg-white p-6 rounded-lg shadow-md text-center">
+                <div className="text-4xl font-bold text-primary mb-2">18</div>
+                <p className="text-lg">Eparchies Outside Kerala</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md text-center">
+                <div className="text-4xl font-bold text-primary mb-2">4</div>
+                <p className="text-lg">Eparchies Outside India</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md text-center">
+                <div className="text-4xl font-bold text-primary mb-2">1</div>
+                <p className="text-lg">Apostolic visitation</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md text-center">
+                <div className="text-4xl font-bold text-primary mb-2">5K+</div>
+                <p className="text-lg">Successful Matches</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 bg-secondary/10">
+      {/* About Section - Divided into 2 columns */}
+      <section className="py-16 bg-section-light">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Join the Premier Catholic Matrimony Community
-          </h2>
-          <p className="text-center text-lg text-muted-foreground mb-12 max-w-3xl mx-auto">
-            Conveniently book online courses and make payments for dioceses
-            through our platform.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold mb-4">
-                Seamless Online Booking for Marriage Preparation Retreats
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Ready for happily ever after? Book and pay for wedding
-                preparation retreats anywhere, anytime.
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-lg font-medium text-primary mb-2">
+                Who we are
+              </h2>
+              <h3 className="text-3xl font-bold mb-6">About Bless Matrimony</h3>
+              <p className="text-lg text-muted-foreground mb-8">
+                Welcome to Bless Matrimony, the premier Catholic matrimonial
+                site exclusively created for Catholic brides and grooms. Our
+                platform, integral to the Church's pastoral initiatives,
+                simplifies your search for a suitable Catholic life partner
+                within your community.
               </p>
-              <img
-                src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=600&q=80"
-                alt="Marriage Preparation"
-                className="w-full h-48 object-cover rounded-md"
-              />
+
+              <div className="flex flex-wrap gap-6 mt-6">
+                <div className="flex items-center">
+                  <div className="mr-3 text-primary">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <span className="font-medium">Best Matches</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="mr-3 text-primary">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <span className="font-medium">Verified Profiles</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="mr-3 text-primary">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <span className="font-medium">100% Privacy</span>
+                </div>
+              </div>
             </div>
 
-            {/* Feature 2 */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold mb-4">
-                Personalised Matrimony for Syro Malabar Community
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Our premium matchmaking service allows users to find suitable
-                proposals that perfectly match their criteria.
-              </p>
+            <div className="relative rounded-lg overflow-hidden shadow-xl">
               <img
-                src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=600&q=80"
-                alt="Matchmaking"
-                className="w-full h-48 object-cover rounded-md"
+                src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=800&q=80"
+                alt="Catholic Wedding"
+                className="w-full h-96 object-cover"
               />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary/80 to-transparent p-6">
+                <p className="text-white font-medium">
+                  Start your journey towards a joyful Catholic marriage today
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section - With solid color background */}
+      <section className="py-16 bg-section-primary text-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">
+                Join the Premier Catholic Matrimony Community
+              </h2>
+              <p className="text-lg mb-8 text-white/80">
+                Conveniently book online courses and make payments for dioceses
+                through our platform. Our premium matchmaking service allows
+                users to find suitable proposals that perfectly match their
+                criteria.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="bg-primary-light p-5 rounded-lg">
+                  <h3 className="text-xl font-bold mb-3">
+                    Marriage Preparation
+                  </h3>
+                  <p className="text-white/80">
+                    Book and pay for wedding preparation retreats anywhere,
+                    anytime.
+                  </p>
+                </div>
+
+                <div className="bg-primary-light p-5 rounded-lg">
+                  <h3 className="text-xl font-bold mb-3">Premium Mobile App</h3>
+                  <p className="text-white/80">
+                    Stay connected on the go with our matrimonial app.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <Button className="bg-white text-primary hover:bg-white/90 mr-4">
+                  Download App
+                </Button>
+                <Button
+                  variant="outline"
+                  className="border-white text-white hover:bg-white/20"
+                >
+                  Learn More
+                </Button>
+              </div>
             </div>
 
-            {/* Feature 3 */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold mb-4">Premium Mobile App</h3>
-              <p className="text-muted-foreground mb-4">
-                Stay Connected on the Go with Our Matrimonial App. Download our
-                app from Google Play or the Apple Store to effortlessly stay
-                connected on the move.
-              </p>
-              <div className="flex justify-center space-x-4">
+            <div className="relative">
+              <div className="grid grid-cols-2 gap-4">
                 <img
-                  src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=300&q=80"
-                  alt="Mobile App"
-                  className="w-1/3 h-48 object-cover rounded-md"
+                  src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=600&q=80"
+                  alt="Marriage Preparation"
+                  className="w-full h-64 object-cover rounded-lg shadow-lg"
                 />
                 <img
-                  src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=300&q=80"
-                  alt="Mobile App"
-                  className="w-1/3 h-48 object-cover rounded-md"
+                  src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=600&q=80"
+                  alt="Matchmaking"
+                  className="w-full h-64 object-cover rounded-lg shadow-lg mt-8"
                 />
                 <img
-                  src="https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?w=300&q=80"
+                  src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80"
                   alt="Mobile App"
-                  className="w-1/3 h-48 object-cover rounded-md"
+                  className="w-full h-64 object-cover rounded-lg shadow-lg"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80"
+                  alt="Mobile App"
+                  className="w-full h-64 object-cover rounded-lg shadow-lg mt-8"
                 />
               </div>
             </div>
@@ -887,101 +979,115 @@ function Home() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-16 bg-secondary/10">
+      {/* FAQ Section - With solid color background */}
+      <section className="py-16 bg-section-light">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-10">
-            Frequently Asked Questions
-          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                Find answers to common questions about our matrimonial service.
+                If you need further assistance, our support team is always ready
+                to help.
+              </p>
 
-          <div className="max-w-3xl mx-auto">
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>
-                  How do I register a profile on the Catholic matrimonial
-                  portal?
-                </AccordionTrigger>
-                <AccordionContent>
-                  To register, click on the "Register" button on the homepage,
-                  fill in your basic details, verify your email, and complete
-                  your profile with personal information, preferences, and
-                  photos.
-                </AccordionContent>
-              </AccordionItem>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h3 className="text-xl font-semibold mb-4">Need Help?</h3>
+                <div className="flex items-center gap-4 mb-4">
+                  <Phone className="h-5 w-5 text-primary" />
+                  <span>+91 9400846997</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Mail className="h-5 w-5 text-primary" />
+                  <span>matrimony@smcim.com</span>
+                </div>
+              </div>
+            </div>
 
-              <AccordionItem value="item-2">
-                <AccordionTrigger>
-                  Can I register for free on the Catholic matrimonial portal?
-                </AccordionTrigger>
-                <AccordionContent>
-                  Yes, basic registration is free. You can create your profile
-                  and browse other profiles. However, to access advanced
-                  features like contacting members, you may need to upgrade to a
-                  paid membership.
-                </AccordionContent>
-              </AccordionItem>
+            <div>
+              <Accordion
+                type="single"
+                collapsible
+                className="w-full bg-white rounded-lg shadow-md"
+              >
+                <AccordionItem value="item-1">
+                  <AccordionTrigger className="px-6">
+                    How do I register a profile on the Catholic matrimonial
+                    portal?
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6">
+                    To register, click on the "Register" button on the homepage,
+                    fill in your basic details, verify your email, and complete
+                    your profile with personal information, preferences, and
+                    photos.
+                  </AccordionContent>
+                </AccordionItem>
 
-              <AccordionItem value="item-3">
-                <AccordionTrigger>
-                  Can I deactivate or delete my profile if needed?
-                </AccordionTrigger>
-                <AccordionContent>
-                  Yes, you can deactivate your profile temporarily or delete it
-                  permanently from your account settings. If you need
-                  assistance, our customer support team is available to help.
-                </AccordionContent>
-              </AccordionItem>
+                <AccordionItem value="item-2">
+                  <AccordionTrigger className="px-6">
+                    Can I register for free on the Catholic matrimonial portal?
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6">
+                    Yes, basic registration is free. You can create your profile
+                    and browse other profiles. However, to access advanced
+                    features like contacting members, you may need to upgrade to
+                    a paid membership.
+                  </AccordionContent>
+                </AccordionItem>
 
-              <AccordionItem value="item-4">
-                <AccordionTrigger>
-                  How can I register a profile on the Catholic matrimonial
-                  portal?
-                </AccordionTrigger>
-                <AccordionContent>
-                  Registration is simple. Click on "Register", provide your
-                  basic details, verify your email, and then complete your
-                  profile with personal information, family details, and
-                  preferences.
-                </AccordionContent>
-              </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger className="px-6">
+                    Can I deactivate or delete my profile if needed?
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6">
+                    Yes, you can deactivate your profile temporarily or delete
+                    it permanently from your account settings. If you need
+                    assistance, our customer support team is available to help.
+                  </AccordionContent>
+                </AccordionItem>
 
-              <AccordionItem value="item-5">
-                <AccordionTrigger>
-                  How can I search for profiles on the Catholic matrimonial
-                  portal?
-                </AccordionTrigger>
-                <AccordionContent>
-                  You can use our advanced search filters to find matches based
-                  on age, location, diocese, education, profession, and other
-                  criteria. You can also save your search preferences for future
-                  use.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+                <AccordionItem value="item-4">
+                  <AccordionTrigger className="px-6">
+                    How can I search for profiles on the Catholic matrimonial
+                    portal?
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6">
+                    You can use our advanced search filters to find matches
+                    based on age, location, diocese, education, profession, and
+                    other criteria. You can also save your search preferences
+                    for future use.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
 
-            <div className="text-center mt-8">
-              <Link to="/faq" className="text-primary hover:underline">
-                Looking for something else? Click here for our detailed FAQs
-                page
-              </Link>
+              <div className="text-center mt-6">
+                <Link to="/faq" className="text-primary hover:underline">
+                  Looking for something else? Click here for our detailed FAQs
+                  page
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact & Newsletter Section */}
-      <section className="py-16 bg-white">
+      {/* Contact & Newsletter Section - With solid color background */}
+      <section className="py-16 bg-section-accent">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Contact */}
-            <div className="bg-card p-8 rounded-lg shadow-md border border-border">
+            <div className="bg-white p-8 rounded-lg shadow-md border border-border">
               <h2 className="text-2xl font-bold mb-6">
                 Feel Free to Reach Out to Us
               </h2>
 
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div className="flex items-start">
-                  <Phone className="h-5 w-5 text-primary mr-3 mt-1" />
+                  <div className="bg-primary/10 p-3 rounded-full mr-4">
+                    <Phone className="h-5 w-5 text-primary" />
+                  </div>
                   <div>
                     <p className="font-medium">Phone</p>
                     <p className="text-muted-foreground">+91 9400846997</p>
@@ -989,7 +1095,9 @@ function Home() {
                 </div>
 
                 <div className="flex items-start">
-                  <MessageSquare className="h-5 w-5 text-primary mr-3 mt-1" />
+                  <div className="bg-primary/10 p-3 rounded-full mr-4">
+                    <MessageSquare className="h-5 w-5 text-primary" />
+                  </div>
                   <div>
                     <p className="font-medium">Whatsapp</p>
                     <p className="text-muted-foreground">+91 9400846997</p>
@@ -997,26 +1105,41 @@ function Home() {
                 </div>
 
                 <div className="flex items-start">
-                  <Mail className="h-5 w-5 text-primary mr-3 mt-1" />
+                  <div className="bg-primary/10 p-3 rounded-full mr-4">
+                    <Mail className="h-5 w-5 text-primary" />
+                  </div>
                   <div>
                     <p className="font-medium">Email</p>
                     <p className="text-muted-foreground">matrimony@smcim.com</p>
                   </div>
                 </div>
               </div>
+
+              <div className="mt-8">
+                <Button className="w-full bg-primary hover:bg-primary/90">
+                  Contact Us
+                </Button>
+              </div>
             </div>
 
             {/* Newsletter */}
-            <div className="bg-card p-8 rounded-lg shadow-md border border-border">
+            <div className="bg-white p-8 rounded-lg shadow-md border border-border">
               <h2 className="text-2xl font-bold mb-6">
                 Newsletter Subscription
               </h2>
+              <p className="text-muted-foreground mb-6">
+                Subscribe to our newsletter to receive updates on new profiles,
+                success stories, and upcoming events.
+              </p>
+
               <div className="flex">
                 <Input
                   placeholder="Enter your mail address"
                   className="rounded-r-none"
                 />
-                <Button className="rounded-l-none">Subscribe</Button>
+                <Button className="rounded-l-none bg-primary hover:bg-primary/90">
+                  Subscribe
+                </Button>
               </div>
               <p className="text-sm text-muted-foreground mt-2">
                 Privacy Security. We will never spam you.
@@ -1027,7 +1150,7 @@ function Home() {
                 <div className="flex space-x-4">
                   <Button
                     variant="outline"
-                    className="flex items-center space-x-2"
+                    className="flex items-center space-x-2 flex-1 justify-center"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1045,7 +1168,7 @@ function Home() {
                   </Button>
                   <Button
                     variant="outline"
-                    className="flex items-center space-x-2"
+                    className="flex items-center space-x-2 flex-1 justify-center"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

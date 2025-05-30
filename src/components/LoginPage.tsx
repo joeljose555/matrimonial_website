@@ -10,13 +10,12 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { Mail, Lock, LogIn } from "lucide-react";
+import { Phone, LogIn, ArrowRight } from "lucide-react";
 import Footer from "./Footer";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -26,6 +25,13 @@ const LoginPage = () => {
     setIsLoading(true);
     setError("");
 
+    // Validate mobile number
+    if (!/^[0-9]{10}$/.test(mobileNumber)) {
+      setError("Please enter a valid 10-digit mobile number");
+      setIsLoading(false);
+      return;
+    }
+
     // Simulate login process
     setTimeout(() => {
       setIsLoading(false);
@@ -33,6 +39,10 @@ const LoginPage = () => {
       navigate("/dashboard");
       // In a real app, you would validate credentials with an API
     }, 1500);
+  };
+
+  const handleNewUser = () => {
+    navigate("/register");
   };
 
   return (
@@ -46,13 +56,13 @@ const LoginPage = () => {
               </h1>
             </Link>
             <p className="text-muted-foreground mt-2">
-              Sign in to your account
+              Find your perfect match
             </p>
           </div>
 
           <Card className="border-border shadow-md">
             <CardHeader className="pb-4">
-              <h2 className="text-2xl font-semibold text-center">Login</h2>
+              <h2 className="text-2xl font-semibold text-center">Welcome</h2>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleLogin}>
@@ -64,41 +74,18 @@ const LoginPage = () => {
 
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="mobileNumber">Mobile Number</Label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input
-                        id="email"
-                        type="email"
-                        placeholder="name@example.com"
+                        id="mobileNumber"
+                        type="tel"
+                        placeholder="Enter your 10-digit mobile number"
                         className="pl-10"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={mobileNumber}
+                        onChange={(e) => setMobileNumber(e.target.value)}
                         required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="password">Password</Label>
-                      <Link
-                        to="/forgot-password"
-                        className="text-sm text-primary hover:underline"
-                      >
-                        Forgot password?
-                      </Link>
-                    </div>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="password"
-                        type="password"
-                        placeholder="••••••••"
-                        className="pl-10"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
+                        maxLength={10}
                       />
                     </div>
                   </div>
@@ -145,20 +132,48 @@ const LoginPage = () => {
                       </span>
                     )}
                   </Button>
+
+                  <div className="flex justify-between items-center mt-4">
+                    <Link
+                      to="/forgot-password"
+                      className="text-sm text-primary hover:underline"
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
+
+                  <div className="relative mt-8">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                      <span className="px-2 bg-card text-muted-foreground">
+                        or
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-6">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+                      onClick={handleNewUser}
+                    >
+                      <span className="flex items-center justify-center">
+                        New User? Create an Account{" "}
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </span>
+                    </Button>
+                  </div>
+
+                  <p className="text-xs text-muted-foreground text-center mt-4">
+                    By continuing, you agree to our Terms of Service and Privacy
+                    Policy
+                  </p>
                 </div>
               </form>
             </CardContent>
-            <CardFooter className="flex justify-center border-t pt-6">
-              <p className="text-sm text-muted-foreground">
-                Don't have an account?{" "}
-                <Link
-                  to="/register"
-                  className="text-primary font-medium hover:underline"
-                >
-                  Register now
-                </Link>
-              </p>
-            </CardFooter>
           </Card>
         </div>
       </div>

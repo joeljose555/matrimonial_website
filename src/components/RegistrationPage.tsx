@@ -10,7 +10,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { Mail, Lock, User, Calendar, UserPlus } from "lucide-react";
+import { Phone, Lock, User, Calendar, UserPlus } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -25,7 +25,7 @@ const RegistrationPage = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    email: "",
+    mobileNumber: "",
     password: "",
     confirmPassword: "",
     gender: "",
@@ -34,6 +34,8 @@ const RegistrationPage = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -48,6 +50,47 @@ const RegistrationPage = () => {
       ...formData,
       [name]: value,
     });
+  };
+
+  const handleSendOtp = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
+    // Validate mobile number
+    if (!/^[0-9]{10}$/.test(formData.mobileNumber)) {
+      setError("Please enter a valid 10-digit mobile number");
+      setIsLoading(false);
+      return;
+    }
+
+    // Simulate OTP sending process
+    setTimeout(() => {
+      setIsLoading(false);
+      setOtpSent(true);
+      // In a real app, you would send OTP via SMS
+    }, 1500);
+  };
+
+  const handleVerifyOtp = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
+    // Validate OTP
+    if (!/^[0-9]{4}$/.test(otp)) {
+      setError("Please enter a valid 4-digit OTP");
+      setIsLoading(false);
+      return;
+    }
+
+    // Simulate OTP verification
+    setTimeout(() => {
+      setIsLoading(false);
+      // For demo purposes, proceed with registration
+      handleSubmit(e);
+      // In a real app, you would verify OTP with an API
+    }, 1500);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -89,204 +132,151 @@ const RegistrationPage = () => {
               <h2 className="text-2xl font-semibold text-center">Register</h2>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit}>
-                {error && (
-                  <div className="bg-destructive/10 text-destructive text-sm p-3 rounded-md mb-4">
-                    {error}
-                  </div>
-                )}
+              {!otpSent ? (
+                <form onSubmit={handleSendOtp}>
+                  {error && (
+                    <div className="bg-destructive/10 text-destructive text-sm p-3 rounded-md mb-4">
+                      {error}
+                    </div>
+                  )}
 
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="firstName">First Name</Label>
+                      <Label htmlFor="mobileNumber">Mobile Number</Label>
                       <div className="relative">
-                        <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                        <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                         <Input
-                          id="firstName"
-                          name="firstName"
-                          placeholder="John"
+                          id="mobileNumber"
+                          name="mobileNumber"
+                          type="tel"
+                          placeholder="Enter your 10-digit mobile number"
                           className="pl-10"
-                          value={formData.firstName}
+                          value={formData.mobileNumber}
                           onChange={handleChange}
                           required
+                          maxLength={10}
                         />
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="lastName">Last Name</Label>
-                      <div className="relative">
-                        <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          id="lastName"
-                          name="lastName"
-                          placeholder="Doe"
-                          className="pl-10"
-                          value={formData.lastName}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-                    </div>
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <span className="flex items-center justify-center">
+                          <svg
+                            className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                          </svg>
+                          Sending OTP...
+                        </span>
+                      ) : (
+                        <span className="flex items-center justify-center">
+                          Send OTP
+                        </span>
+                      )}
+                    </Button>
                   </div>
+                </form>
+              ) : (
+                <form onSubmit={handleVerifyOtp}>
+                  {error && (
+                    <div className="bg-destructive/10 text-destructive text-sm p-3 rounded-md mb-4">
+                      {error}
+                    </div>
+                  )}
 
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="otp">Enter OTP</Label>
                       <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="name@example.com"
-                        className="pl-10"
-                        value={formData.email}
-                        onChange={handleChange}
+                        id="otp"
+                        type="text"
+                        placeholder="Enter 4-digit OTP"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
                         required
+                        maxLength={4}
+                        className="text-center text-lg tracking-widest"
                       />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="gender">Gender</Label>
-                      <Select
-                        value={formData.gender}
-                        onValueChange={(value) =>
-                          handleSelectChange("gender", value)
-                        }
-                      >
-                        <SelectTrigger id="gender">
-                          <SelectValue placeholder="Select Gender" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="male">Male</SelectItem>
-                          <SelectItem value="female">Female</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="dateOfBirth">Date of Birth</Label>
-                      <div className="relative">
-                        <Calendar className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          id="dateOfBirth"
-                          name="dateOfBirth"
-                          type="date"
-                          className="pl-10"
-                          value={formData.dateOfBirth}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="password">Password</Label>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          id="password"
-                          name="password"
-                          type="password"
-                          placeholder="••••••••"
-                          className="pl-10"
-                          value={formData.password}
-                          onChange={handleChange}
-                          required
-                          minLength={8}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="confirmPassword">Confirm Password</Label>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          id="confirmPassword"
-                          name="confirmPassword"
-                          type="password"
-                          placeholder="••••••••"
-                          className="pl-10"
-                          value={formData.confirmPassword}
-                          onChange={handleChange}
-                          required
-                          minLength={8}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="agreeTerms"
-                      name="agreeTerms"
-                      checked={formData.agreeTerms}
-                      onCheckedChange={(checked) =>
-                        setFormData({ ...formData, agreeTerms: !!checked })
-                      }
-                      required
-                    />
-                    <Label htmlFor="agreeTerms" className="text-sm font-normal">
-                      I agree to the{" "}
-                      <Link
-                        to="/terms"
-                        className="text-primary hover:underline"
-                      >
-                        Terms of Service
-                      </Link>{" "}
-                      and{" "}
-                      <Link
-                        to="/privacy"
-                        className="text-primary hover:underline"
-                      >
-                        Privacy Policy
-                      </Link>
-                    </Label>
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    disabled={isLoading || !formData.agreeTerms}
-                  >
-                    {isLoading ? (
-                      <span className="flex items-center justify-center">
-                        <svg
-                          className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
+                      <p className="text-xs text-muted-foreground text-center">
+                        OTP sent to {formData.mobileNumber}{" "}
+                        <button
+                          type="button"
+                          className="text-primary hover:underline"
+                          onClick={() => setOtpSent(false)}
                         >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                          ></circle>
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                          ></path>
-                        </svg>
-                        Creating account...
-                      </span>
-                    ) : (
-                      <span className="flex items-center justify-center">
-                        <UserPlus className="mr-2 h-4 w-4" /> Create Account
-                      </span>
-                    )}
-                  </Button>
-                </div>
-              </form>
+                          Change
+                        </button>
+                      </p>
+                    </div>
+
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <span className="flex items-center justify-center">
+                          <svg
+                            className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                          </svg>
+                          Verifying...
+                        </span>
+                      ) : (
+                        <span className="flex items-center justify-center">
+                          Verify & Continue
+                        </span>
+                      )}
+                    </Button>
+
+                    <div className="text-center">
+                      <button
+                        type="button"
+                        className="text-sm text-primary hover:underline"
+                        onClick={handleSendOtp}
+                      >
+                        Resend OTP
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              )}
             </CardContent>
             <CardFooter className="flex justify-center border-t pt-6">
               <p className="text-sm text-muted-foreground">
