@@ -3,6 +3,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
 import {
   Bell,
   Mail,
@@ -15,7 +16,7 @@ import {
 } from "lucide-react";
 import ProfileCard from "./ProfileCard";
 import SearchFilters from "./SearchFilters";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 
 interface DashboardProps {
@@ -28,6 +29,7 @@ const Dashboard = ({
   profileCompletion = 75,
 }: DashboardProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("recommended");
   const [showFilters, setShowFilters] = useState(false);
 
@@ -139,139 +141,158 @@ const Dashboard = ({
     setShowFilters(!showFilters);
   };
 
+  const handleViewProfile = () => {
+    navigate("/profile");
+  };
+
+  const handleViewMessages = () => {
+    navigate("/messages");
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      {/* Sidebar and Main Content Container */}
-      <div className="flex flex-1">
-        {/* Sidebar */}
-        <div className="w-64 border-r bg-card p-4 flex flex-col">
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-primary">Matrimony</h2>
+      {/* Header/Navigation */}
+      <header className="bg-white border-b border-border sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
+          <div className="flex items-center">
+            <Link to="/">
+              <h1 className="text-2xl font-bold text-primary">
+                Bless Matrimony
+              </h1>
+            </Link>
           </div>
 
-          <div className="mb-6">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <User className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <p className="font-medium">{username}</p>
-                <div className="flex items-center gap-2">
-                  <Progress value={profileCompletion} className="h-2 w-24" />
-                  <span className="text-xs text-muted-foreground">
-                    {profileCompletion}%
-                  </span>
-                </div>
-              </div>
-            </div>
-            <Button
-              variant="outline"
-              className="w-full justify-start"
-              size="sm"
+          <nav className="hidden md:flex space-x-6">
+            <Link
+              to="/dashboard"
+              className="text-foreground hover:text-primary font-medium"
             >
-              <User className="mr-2 h-4 w-4" />
-              Complete Profile
-            </Button>
-          </div>
-
-          <nav className="space-y-1 flex-1">
-            <Button
-              variant={activeTab === "recommended" ? "secondary" : "ghost"}
-              className="w-full justify-start"
-              onClick={() => setActiveTab("recommended")}
+              Dashboard
+            </Link>
+            <Link
+              to="/about"
+              className="text-foreground hover:text-primary font-medium"
             >
-              <Heart className="mr-2 h-4 w-4" />
-              Recommended
-            </Button>
-            <Button
-              variant={activeTab === "search" ? "secondary" : "ghost"}
-              className="w-full justify-start"
-              onClick={() => setActiveTab("search")}
+              About Us
+            </Link>
+            <Link
+              to="/resources"
+              className="text-foreground hover:text-primary font-medium"
             >
-              <Search className="mr-2 h-4 w-4" />
-              Search
-            </Button>
-            <Button
-              variant={activeTab === "interests" ? "secondary" : "ghost"}
-              className="w-full justify-start"
-              onClick={() => setActiveTab("interests")}
+              Resources
+            </Link>
+            <Link
+              to="/packages"
+              className="text-foreground hover:text-primary font-medium"
             >
-              <Heart className="mr-2 h-4 w-4" />
-              Interests
-            </Button>
-            <Button
-              variant={activeTab === "messages" ? "secondary" : "ghost"}
-              className="w-full justify-start"
-              onClick={() => setActiveTab("messages")}
+              Packages
+            </Link>
+            <Link
+              to="/contact"
+              className="text-foreground hover:text-primary font-medium"
             >
-              <Mail className="mr-2 h-4 w-4" />
-              Messages
-            </Button>
+              Contact Us
+            </Link>
           </nav>
 
-          <div className="pt-4 border-t space-y-1">
-            <Link to="/">
-              <Button variant="ghost" className="w-full justify-start">
-                <HomeIcon className="mr-2 h-4 w-4" />
-                Home
+          <div className="flex items-center space-x-4">
+            <div className="relative">
+              <Input placeholder="Search by ID" className="pl-8 w-32 md:w-40" />
+              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            </div>
+            <Button variant="ghost" size="icon">
+              <Bell className="h-5 w-5" />
+            </Button>
+            <Link to="/messages">
+              <Button variant="ghost" size="icon">
+                <Mail className="h-5 w-5" />
               </Button>
             </Link>
-            <Button variant="ghost" className="w-full justify-start">
-              <Settings className="mr-2 h-4 w-4" />
-              Settings
-            </Button>
+            <Link to="/profile">
+              <Button variant="ghost" size="icon">
+                <User className="h-5 w-5" />
+              </Button>
+            </Link>
             <Link to="/login">
-              <Button variant="ghost" className="w-full justify-start">
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
+              <Button variant="outline" size="sm">
+                <LogOut className="mr-2 h-4 w-4" /> Logout
               </Button>
             </Link>
           </div>
         </div>
+      </header>
 
-        {/* Main Content */}
-        <div className="flex-1 overflow-auto">
-          {/* Header */}
-          <header className="border-b p-4 flex justify-between items-center bg-background sticky top-0 z-10">
-            <h1 className="text-xl font-semibold">
+      {/* Main Content */}
+      <div className="flex-1 overflow-auto">
+        {/* Dashboard Tabs */}
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-2xl font-semibold">
               {activeTab === "recommended" && "Recommended Matches"}
               {activeTab === "search" && "Search Partners"}
               {activeTab === "interests" && "Interests"}
               {activeTab === "messages" && "Messages"}
             </h1>
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon">
-                <Bell className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon">
-                <Mail className="h-5 w-5" />
-              </Button>
-            </div>
-          </header>
-
-          {/* Content Area */}
-          <div className="p-6">
-            {/* Recommended Tab */}
-            {activeTab === "recommended" && (
-              <div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {recommendedMatches.map((match) => (
-                    <ProfileCard
-                      key={match.id}
-                      name={match.name}
-                      age={match.age}
-                      location={match.location}
-                      profession={match.profession}
-                      photo={match.photo}
-                      compatibility={match.compatibility}
-                    />
-                  ))}
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <User className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <p className="font-medium">{username}</p>
+                  <div className="flex items-center gap-2">
+                    <Progress value={profileCompletion} className="h-2 w-24" />
+                    <span className="text-xs text-muted-foreground">
+                      {profileCompletion}%
+                    </span>
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
+          </div>
 
-            {/* Search Tab */}
-            {activeTab === "search" && (
+          <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="w-full"
+          >
+            <TabsList className="mb-6">
+              <TabsTrigger value="recommended">
+                <Heart className="mr-2 h-4 w-4" />
+                Recommended
+              </TabsTrigger>
+              <TabsTrigger value="search">
+                <Search className="mr-2 h-4 w-4" />
+                Search
+              </TabsTrigger>
+              <TabsTrigger value="interests">
+                <Heart className="mr-2 h-4 w-4" />
+                Interests
+              </TabsTrigger>
+              <TabsTrigger value="messages">
+                <Mail className="mr-2 h-4 w-4" />
+                Messages
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="recommended">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {recommendedMatches.map((match) => (
+                  <ProfileCard
+                    key={match.id}
+                    name={match.name}
+                    age={match.age}
+                    location={match.location}
+                    profession={match.profession}
+                    photo={match.photo}
+                    compatibility={match.compatibility}
+                    onViewProfile={handleViewProfile}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="search">
               <div className="flex gap-6">
                 {showFilters && (
                   <div className="w-72">
@@ -300,74 +321,73 @@ const Dashboard = ({
                         location={match.location}
                         profession={match.profession}
                         photo={match.photo}
+                        onViewProfile={handleViewProfile}
                       />
                     ))}
                   </div>
                 </div>
               </div>
-            )}
+            </TabsContent>
 
-            {/* Interests Tab */}
-            {activeTab === "interests" && (
-              <div>
-                <Tabs defaultValue="received">
-                  <TabsList className="mb-6">
-                    <TabsTrigger value="received">Received</TabsTrigger>
-                    <TabsTrigger value="sent">Sent</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="received">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {interests
-                        .filter((interest) => interest.status === "received")
-                        .map((interest) => (
-                          <ProfileCard
-                            key={interest.id}
-                            name={interest.name}
-                            age={interest.age}
-                            location={interest.location}
-                            profession={interest.profession}
-                            photo={interest.photo}
-                            showActions={true}
-                            actionButtons={[
-                              <Button key="accept" size="sm">
-                                Accept
-                              </Button>,
-                              <Button key="decline" variant="outline" size="sm">
-                                Decline
-                              </Button>,
-                            ]}
-                          />
-                        ))}
-                    </div>
-                  </TabsContent>
-                  <TabsContent value="sent">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {interests
-                        .filter((interest) => interest.status === "sent")
-                        .map((interest) => (
-                          <ProfileCard
-                            key={interest.id}
-                            name={interest.name}
-                            age={interest.age}
-                            location={interest.location}
-                            profession={interest.profession}
-                            photo={interest.photo}
-                            showActions={true}
-                            actionButtons={[
-                              <Button key="cancel" variant="outline" size="sm">
-                                Cancel Interest
-                              </Button>,
-                            ]}
-                          />
-                        ))}
-                    </div>
-                  </TabsContent>
-                </Tabs>
-              </div>
-            )}
+            <TabsContent value="interests">
+              <Tabs defaultValue="received">
+                <TabsList className="mb-6">
+                  <TabsTrigger value="received">Received</TabsTrigger>
+                  <TabsTrigger value="sent">Sent</TabsTrigger>
+                </TabsList>
+                <TabsContent value="received">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {interests
+                      .filter((interest) => interest.status === "received")
+                      .map((interest) => (
+                        <ProfileCard
+                          key={interest.id}
+                          name={interest.name}
+                          age={interest.age}
+                          location={interest.location}
+                          profession={interest.profession}
+                          photo={interest.photo}
+                          showActions={true}
+                          onViewProfile={handleViewProfile}
+                          actionButtons={[
+                            <Button key="accept" size="sm">
+                              Accept
+                            </Button>,
+                            <Button key="decline" variant="outline" size="sm">
+                              Decline
+                            </Button>,
+                          ]}
+                        />
+                      ))}
+                  </div>
+                </TabsContent>
+                <TabsContent value="sent">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {interests
+                      .filter((interest) => interest.status === "sent")
+                      .map((interest) => (
+                        <ProfileCard
+                          key={interest.id}
+                          name={interest.name}
+                          age={interest.age}
+                          location={interest.location}
+                          profession={interest.profession}
+                          photo={interest.photo}
+                          showActions={true}
+                          onViewProfile={handleViewProfile}
+                          actionButtons={[
+                            <Button key="cancel" variant="outline" size="sm">
+                              Cancel Interest
+                            </Button>,
+                          ]}
+                        />
+                      ))}
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </TabsContent>
 
-            {/* Messages Tab */}
-            {activeTab === "messages" && (
+            <TabsContent value="messages">
               <div className="grid grid-cols-1 gap-4">
                 {messages.map((message) => (
                   <Card
@@ -396,13 +416,15 @@ const Dashboard = ({
                           {message.lastMessage}
                         </p>
                       </div>
-                      <Button size="sm">Reply</Button>
+                      <Button size="sm" onClick={handleViewMessages}>
+                        Reply
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}
               </div>
-            )}
-          </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
       <Footer />

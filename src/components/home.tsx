@@ -66,7 +66,7 @@ function Home() {
       <header className="bg-white border-b border-border sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-primary">Joels Matrimony</h1>
+            <h1 className="text-2xl font-bold text-primary">Bless Matrimony</h1>
           </div>
 
           <nav className="hidden md:flex space-x-6">
@@ -128,8 +128,7 @@ function Home() {
                 Begin Your Journey to Forever
               </h1>
               <p className="text-xl text-white/90 mb-8">
-                Join thousands of Syro Malabar Catholics who found their perfect
-                match
+                Join thousands of Catholics who found their perfect match
               </p>
               <div className="flex justify-center gap-4">
                 <Link to="/register">
@@ -175,61 +174,74 @@ function Home() {
               <div className="space-y-2">
                 <label className="text-sm font-medium">Looking for</label>
                 <Select>
-                  <div
-                    className="flex justify-between items-center text-foreground p-2 border rounded-md"
-                    onClick={() =>
-                      handleSearchParamChange(
-                        "lookingFor",
-                        searchParams.lookingFor === "bride" ? "groom" : "bride",
-                      )
+                  <select
+                    className="flex justify-between items-center text-foreground p-2 border rounded-md w-full"
+                    value={searchParams.lookingFor}
+                    onChange={(e) =>
+                      handleSearchParamChange("lookingFor", e.target.value)
                     }
                   >
-                    <span>
-                      {searchParams.lookingFor === "bride" ? "Bride" : "Groom"}
-                    </span>
-                    <ChevronDown className="h-4 w-4" />
-                  </div>
+                    <option value="bride">Bride</option>
+                    <option value="groom">Groom</option>
+                  </select>
                 </Select>
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm font-medium">Age Range</label>
                 <Select>
-                  <div
-                    className="flex justify-between items-center text-foreground p-2 border rounded-md"
-                    onClick={() => handleSearchParamChange("ageRange", "21-35")}
+                  <select
+                    className="flex justify-between items-center text-foreground p-2 border rounded-md w-full"
+                    value={searchParams.ageRange}
+                    onChange={(e) =>
+                      handleSearchParamChange("ageRange", e.target.value)
+                    }
                   >
-                    <span>21 - 35</span>
-                    <ChevronDown className="h-4 w-4" />
-                  </div>
+                    <option value="18-25">18 - 25</option>
+                    <option value="21-35">21 - 35</option>
+                    <option value="25-40">25 - 40</option>
+                    <option value="35-50">35 - 50</option>
+                    <option value="45+">45+</option>
+                  </select>
                 </Select>
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm font-medium">Community</label>
                 <Select>
-                  <div
-                    className="flex justify-between items-center text-foreground p-2 border rounded-md"
-                    onClick={() =>
-                      handleSearchParamChange("community", "syro-malabar")
+                  <select
+                    className="flex justify-between items-center text-foreground p-2 border rounded-md w-full"
+                    value={searchParams.community}
+                    onChange={(e) =>
+                      handleSearchParamChange("community", e.target.value)
                     }
                   >
-                    <span>Syro-Malabar</span>
-                    <ChevronDown className="h-4 w-4" />
-                  </div>
+                    <option value="catholic">Catholic</option>
+                    <option value="latin">Latin</option>
+                    <option value="syro-malabar">Syro-Malabar</option>
+                    <option value="syro-malankara">Syro-Malankara</option>
+                    <option value="other">Other</option>
+                  </select>
                 </Select>
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm font-medium">Diocese</label>
                 <Select>
-                  <div
-                    className="flex justify-between items-center text-foreground p-2 border rounded-md"
-                    onClick={() => handleSearchParamChange("diocese", "all")}
+                  <select
+                    className="flex justify-between items-center text-foreground p-2 border rounded-md w-full"
+                    value={searchParams.diocese}
+                    onChange={(e) =>
+                      handleSearchParamChange("diocese", e.target.value)
+                    }
                   >
-                    <span>All Dioceses</span>
-                    <ChevronDown className="h-4 w-4" />
-                  </div>
+                    <option value="all">All Dioceses</option>
+                    <option value="ernakulam">Ernakulam</option>
+                    <option value="thrissur">Thrissur</option>
+                    <option value="kottayam">Kottayam</option>
+                    <option value="palai">Palai</option>
+                    <option value="other">Other</option>
+                  </select>
                 </Select>
               </div>
             </div>
@@ -421,19 +433,16 @@ function Home() {
             <h2 className="text-lg font-medium text-primary mb-2">
               Who we are
             </h2>
-            <h3 className="text-3xl font-bold mb-6">
-              About Syro Malabar Matrimony
-            </h3>
+            <h3 className="text-3xl font-bold mb-6">About Bless Matrimony</h3>
             <p className="text-lg text-muted-foreground mb-8">
-              Welcome to Syro Malabar Matrimony, the premier Catholic
-              matrimonial site exclusively created for Syro Malabar brides and
-              grooms. Our platform, integral to the Syro Malabar Church's
-              pastoral initiatives, simplifies your search for a suitable
-              Catholic life partner within your community. With a vast database
-              of genuine profiles, discover a match tailored to your
-              preferences. Proudly presented by SMCIM, Syro-Malabar Matrimony
-              connects hearts worldwide. Start your journey towards a joyful
-              Catholic marriage today.
+              Welcome to Bless Matrimony, the premier Catholic matrimonial site
+              exclusively created for Catholic brides and grooms. Our platform,
+              integral to the Church's pastoral initiatives, simplifies your
+              search for a suitable Catholic life partner within your community.
+              With a vast database of genuine profiles, discover a match
+              tailored to your preferences. Bless Matrimony connects hearts
+              worldwide. Start your journey towards a joyful Catholic marriage
+              today.
             </p>
 
             <div className="flex flex-wrap justify-center gap-8 mt-10">
@@ -766,7 +775,7 @@ function Home() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"
+                      d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 11-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"
                     />
                   </svg>
                 </div>
@@ -822,7 +831,7 @@ function Home() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
                     />
                   </svg>
                 </div>

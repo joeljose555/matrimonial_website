@@ -8,6 +8,8 @@ const Dashboard = lazy(() => import("./components/Dashboard"));
 const LoginPage = lazy(() => import("./components/LoginPage"));
 const RegistrationPage = lazy(() => import("./components/RegistrationPage"));
 const ProfileCreation = lazy(() => import("./components/ProfileCreation"));
+const ProfilePage = lazy(() => import("./components/ProfilePage"));
+const ChatMessagesPage = lazy(() => import("./components/ChatMessagesPage"));
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
           <Route path="/profile-creation" element={<ProfileCreation />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/messages" element={<ChatMessagesPage />} />
 
           {/* Add routes for other pages */}
           <Route

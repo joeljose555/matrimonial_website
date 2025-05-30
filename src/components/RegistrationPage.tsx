@@ -78,7 +78,7 @@ const RegistrationPage = () => {
           <div className="text-center mb-8">
             <Link to="/" className="inline-block">
               <h1 className="text-3xl font-bold text-primary">
-                Syro Malabar Matrimony
+                Bless Matrimony
               </h1>
             </Link>
             <p className="text-muted-foreground mt-2">Create your account</p>

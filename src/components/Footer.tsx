@@ -126,11 +126,11 @@ const Footer = () => {
           {/* Logo */}
           <div>
             <h2 className="text-2xl font-bold text-primary mb-4">
-              Syro Malabar Matrimony
+              Bless Matrimony
             </h2>
             <p className="text-muted-foreground">
-              The premier Catholic matrimonial site exclusively for Syro Malabar
-              brides and grooms.
+              The premier Catholic matrimonial site exclusively for brides and
+              grooms.
             </p>
           </div>
         </div>

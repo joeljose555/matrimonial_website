@@ -14,6 +14,9 @@ interface ProfileCardProps {
   education?: string;
   photo?: string;
   religion?: string;
+  compatibility?: number;
+  showActions?: boolean;
+  actionButtons?: React.ReactNode[];
   onViewProfile?: (id: string) => void;
   onExpressInterest?: (id: string) => void;
 }
